@@ -6,8 +6,14 @@ Raw XML/JSON/CSV/TXT → **Python Filter** → **Scrub Sensitive Data** → outp
 
 ## Dependencies
 
+### Ingestion pipeline (your part)
 - Python 3.10+
 - No third-party pip packages required (standard library only)
+
+### Streamlit app (`app.py`, your friend's part)
+- `streamlit`
+- `ollama`
+- `reportlab`
 
 ## What it does
 
@@ -52,6 +58,7 @@ Sensitive tokens are redacted in `description` and `evidence` fields:
 
 ```text
 Synthetic-Auditor/
+├── app.py
 ├── README.md
 └── src/local_security_report_generator/
     ├── __init__.py
@@ -99,3 +106,14 @@ python -m src.local_security_report_generator.cli \
 - `transformer.py`: normalize findings + scrub sensitive data + emit `critical_findings`
 - `cli.py`: orchestrates pipeline and output mode
 
+
+
+## Run the friend app
+
+After generating findings JSON with the CLI, run:
+
+```bash
+streamlit run app.py
+```
+
+Upload the JSON file produced by this pipeline (contains `critical_findings` and `findings`).
